@@ -61,7 +61,7 @@ document.getElementById("descargar").onclick = function () {
     let ctx = canvas.getContext("2d");
 
     let img = new Image();
-    img.src = "logo.jpg"; // <--- AQUI VA TU IMAGEN
+    img.src = "logo.png"; // <--- AQUI VA TU IMAGEN
 
     img.onload = function () {
         // limpiar
@@ -70,14 +70,18 @@ document.getElementById("descargar").onclick = function () {
         // Dibujar imagen original
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        // Texto personalizado
-        ctx.font = "bold 70px Arial";
-        ctx.fillStyle = "#002B5B";
-        ctx.textAlign = "center";
+// Texto personalizado en 2 líneas
+ctx.textAlign = "center";
+ctx.fillStyle = "#002B5B";
 
-        let frase = "El Portoviejo crece con " + nombre;
+// Línea 1: "RENACE CON"
+ctx.font = "bold 100px Arial";
+ctx.fillText("RENACE CON", canvas.width / 2, canvas.height - 180);
 
-        ctx.fillText(frase, canvas.width / 2, canvas.height - 80);
+// Línea 2: NOMBRE (más grande)
+ctx.font = "bold 110px Arial";
+//ctx.fillStyle = "#002B5B";
+ctx.fillText(nombre, canvas.width / 2, canvas.height - 80);
 
         // Descargar imagen
         let enlace = document.createElement("a");
