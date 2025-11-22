@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Generador - Colectivo Portoviejo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f3f3f3;
+        padding: 40px;
+    }
+    #descargar {
+        margin-top: 15px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    #descargar:hover {
+        background: #0056b3;
+    }
+    input {
+        padding: 10px;
+        font-size: 18px;
+        width: 80%;
+        max-width: 350px;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Colectivo Portoviejo – Generador de Logo</h2>
+
+<p>Escribe tu nombre y descarga la imagen personalizada.</p>
+
+<input type="text" id="nombre" placeholder="Escribe tu nombre aquí">
+
+<br>
+
+<button id="descargar">Descargar Logo</button>
+
+<br><br>
+
+<canvas id="canvas" width="1080" height="1080" style="display:none;"></canvas>
+
+<script>
+document.getElementById("descargar").onclick = function () {
+    let nombre = document.getElementById("nombre").value.trim();
+
+    if (nombre === "") {
+        alert("Por favor escribe tu nombre.");
+        return;
+    }
+
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+
+    let img = new Image();
+    img.src = "logo.jpg"; // <--- AQUI VA TU IMAGEN
+
+    img.onload = function () {
+        // limpiar
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dibujar imagen original
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Texto personalizado
+        ctx.font = "bold 70px Arial";
+        ctx.fillStyle = "#002B5B";
+        ctx.textAlign = "center";
+
+        let frase = "El Portoviejo crece con " + nombre;
+
+        ctx.fillText(frase, canvas.width / 2, canvas.height - 80);
+
+        // Descargar imagen
+        let enlace = document.createElement("a");
+        enlace.download = "Portoviejo_" + nombre + ".png";
+        enlace.href = canvas.toDataURL();
+        enlace.click();
+    };
+};
+</script>
+
+</body>
+</html>
